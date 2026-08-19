@@ -260,15 +260,17 @@ export async function saveProposal(input: unknown) {
   redirect(`/propostas/${proposalId}`);
 }
 
-export async function publishProposal(proposalId: string) {
+export async function publishProposal(proposalId: string, _formData?: FormData): Promise<void> {
   const user = await requireUser();
   const proposal = await prisma.proposal.findFirst({
     where: { id: proposalId, organizationId: user.organizationId },
     include: { _count: { select: { problems: true, opportunities: true, services: true } } },
   });
-  if (!proposal) return { error: "Proposta não encontrada." };
+  if (!proposal) {
+    throw new Error("Proposta não encontrada.");
+  }
   if (!proposal._count.problems || !proposal._count.opportunities || !proposal._count.services) {
-    return { error: "Complete a montagem da proposta antes de publicar." };
+    throw new Error("Complete a montagem da proposta antes de publicar.");
   }
 
   await prisma.proposal.update({
