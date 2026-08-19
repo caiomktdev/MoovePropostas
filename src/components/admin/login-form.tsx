@@ -16,7 +16,6 @@ export function LoginForm() {
           type="email"
           required
           autoComplete="email"
-          defaultValue="comercial@moove.com.br"
           className="h-12 w-full rounded-2xl border border-line bg-white/4 px-4 text-ink outline-none transition focus:border-lilac/50"
         />
       </label>
@@ -27,7 +26,6 @@ export function LoginForm() {
           type="password"
           required
           autoComplete="current-password"
-          defaultValue="moove2026"
           className="h-12 w-full rounded-2xl border border-line bg-white/4 px-4 text-ink outline-none transition focus:border-lilac/50"
         />
       </label>

@@ -2,7 +2,6 @@
 
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
-import { redirect } from "next/navigation";
 import { signIn, signOut } from "@/auth";
 
 export async function loginAction(
@@ -17,15 +16,11 @@ export async function loginAction(
   }
 
   try {
-    const result = await signIn("credentials", {
+    await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      redirectTo: "/dashboard",
     });
-
-    if (result && typeof result === "object" && "error" in result && result.error) {
-      return { error: "E-mail ou senha inválidos." };
-    }
   } catch (error) {
     if (isRedirectError(error)) throw error;
     if (error instanceof AuthError) {
@@ -33,8 +28,6 @@ export async function loginAction(
     }
     throw error;
   }
-
-  redirect("/dashboard");
 }
 
 export async function logoutAction() {
