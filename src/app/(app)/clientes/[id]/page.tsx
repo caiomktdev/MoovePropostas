@@ -19,12 +19,20 @@ export default async function ClientPage({
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 pb-20">
-      <header>
-        <p className="text-xs uppercase tracking-[0.28em] text-lilac">{client.segment}</p>
-        <h1 className="mt-2 font-display text-4xl tracking-tight">{client.companyName}</h1>
-        <p className="mt-2 text-muted">
-          {client.contactName} · {client.contactRole} · {client.instagram}
-        </p>
+      <header className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-xs uppercase tracking-[0.28em] text-lilac">{client.segment}</p>
+          <h1 className="mt-2 font-display text-4xl tracking-tight">{client.companyName}</h1>
+          <p className="mt-2 text-muted">
+            {client.contactName} · {client.contactRole} · {client.instagram}
+          </p>
+        </div>
+        <Link
+          href={`/propostas/nova?cliente=${client.id}`}
+          className="inline-flex h-11 items-center rounded-full bg-primary px-5 text-sm font-medium text-white"
+        >
+          Montar proposta
+        </Link>
       </header>
       <Card className="grid gap-4 p-6 sm:grid-cols-2">
         <Field label="Cidade" value={[client.city, client.state].filter(Boolean).join(" / ")} />
@@ -34,15 +42,19 @@ export default async function ClientPage({
       </Card>
       <section className="space-y-3">
         <h2 className="font-display text-2xl">Propostas</h2>
-        {client.proposals.map((proposal) => (
-          <Link
-            key={proposal.id}
-            href={`/propostas/${proposal.id}`}
-            className="block rounded-2xl border border-line px-4 py-4 hover:border-lilac/30"
-          >
-            {proposal.title}
-          </Link>
-        ))}
+        {client.proposals.length === 0 ? (
+          <p className="text-sm text-muted">Nenhuma proposta montada ainda para este cliente.</p>
+        ) : (
+          client.proposals.map((proposal) => (
+            <Link
+              key={proposal.id}
+              href={`/propostas/${proposal.id}`}
+              className="block rounded-2xl border border-line px-4 py-4 hover:border-lilac/30"
+            >
+              {proposal.title}
+            </Link>
+          ))
+        )}
       </section>
     </div>
   );

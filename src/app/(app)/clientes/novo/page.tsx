@@ -1,14 +1,13 @@
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/session";
-import { publicToken, slugify } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 export default async function NewClientPage() {
   await requireUser();
   return (
     <div className="mx-auto max-w-2xl pb-20">
-      <p className="text-xs uppercase tracking-[0.28em] text-lilac">Etapa 01</p>
+      <p className="text-xs uppercase tracking-[0.28em] text-lilac">Cadastro</p>
       <h1 className="mt-2 font-display text-4xl tracking-tight">Dados da empresa</h1>
       <form action={createClient} className="mt-10 grid gap-4">
         <Field name="companyName" label="Nome da empresa" required />
@@ -41,6 +40,9 @@ export default async function NewClientPage() {
         <Button type="submit" size="lg">
           Salvar cliente
         </Button>
+        <p className="text-center text-xs text-muted">
+          O cadastro guarda só a empresa. A proposta comercial é montada depois, em Propostas.
+        </p>
       </form>
     </div>
   );
@@ -95,19 +97,6 @@ async function createClient(formData: FormData) {
       tiktok: String(formData.get("tiktok") ?? "") || null,
       googleMaps: String(formData.get("googleMaps") ?? "") || null,
       notes: String(formData.get("notes") ?? "") || null,
-    },
-  });
-
-  const token = publicToken();
-  await prisma.proposal.create({
-    data: {
-      organizationId: user.organizationId,
-      clientId: client.id,
-      ownerId: user.id,
-      title: `Proposta comercial · ${companyName}`,
-      slug: `${slugify(companyName)}-${token}`,
-      publicToken: `${slugify(companyName)}-${token}`,
-      status: "RASCUNHO",
     },
   });
 

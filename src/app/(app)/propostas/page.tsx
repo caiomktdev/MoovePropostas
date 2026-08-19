@@ -19,8 +19,11 @@ export default async function ProposalsPage() {
           <p className="text-xs uppercase tracking-[0.28em] text-lilac">Biblioteca</p>
           <h1 className="mt-2 font-display text-4xl tracking-tight">Propostas</h1>
         </div>
-        <Link href="/clientes" className="text-sm text-lilac">
-          Criar a partir de um cliente
+        <Link
+          href="/propostas/nova"
+          className="inline-flex h-11 items-center rounded-full bg-primary px-5 text-sm font-medium text-white"
+        >
+          Nova proposta
         </Link>
       </header>
       <div className="overflow-hidden rounded-[var(--radius-lg)] border border-line">

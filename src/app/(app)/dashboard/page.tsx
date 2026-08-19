@@ -56,12 +56,20 @@ export default async function DashboardPage() {
             O que está em movimento agora — valor, ritmo e interesse.
           </p>
         </div>
-        <Link
-          href="/clientes/novo"
-          className="inline-flex h-11 items-center rounded-full bg-primary px-5 text-sm font-medium text-white"
-        >
-          Novo cliente
-        </Link>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/clientes/novo"
+            className="inline-flex h-11 items-center rounded-full border border-line px-5 text-sm font-medium hover:border-lilac/40"
+          >
+            Novo cliente
+          </Link>
+          <Link
+            href="/propostas/nova"
+            className="inline-flex h-11 items-center rounded-full bg-primary px-5 text-sm font-medium text-white"
+          >
+            Nova proposta
+          </Link>
+        </div>
       </header>
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

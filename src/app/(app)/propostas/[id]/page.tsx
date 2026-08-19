@@ -5,6 +5,8 @@ import { requireUser } from "@/lib/session";
 import { formatCurrency } from "@/lib/utils";
 import { StatusBadge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { publishProposal } from "@/app/(app)/propostas/actions";
 
 export default async function ProposalAdminPage({
   params,
@@ -37,7 +39,15 @@ export default async function ProposalAdminPage({
           <h1 className="mt-2 font-display text-4xl tracking-tight">{proposal.client.companyName}</h1>
           <p className="mt-2 text-muted">{proposal.title}</p>
         </div>
-        <StatusBadge status={proposal.status} />
+        <div className="flex flex-wrap items-center gap-3">
+          <StatusBadge status={proposal.status} />
+          <Link
+            href={`/propostas/${proposal.id}/editar`}
+            className="inline-flex h-11 items-center rounded-full border border-line px-5 text-sm hover:border-lilac/40"
+          >
+            Editar proposta
+          </Link>
+        </div>
       </header>
 
       <div className="grid gap-4 sm:grid-cols-3">
@@ -58,16 +68,28 @@ export default async function ProposalAdminPage({
       <Card className="flex flex-col gap-4 p-6 md:flex-row md:items-center md:justify-between">
         <div>
           <p className="text-xs uppercase tracking-[0.16em] text-muted">Link público</p>
-          <p className="mt-1 text-sm text-lilac">{publicUrl}</p>
+          {proposal.status === "RASCUNHO" ? (
+            <p className="mt-1 text-sm text-muted">
+              Esta proposta ainda é rascunho. Publique para liberar o link do cliente.
+            </p>
+          ) : (
+            <p className="mt-1 text-sm text-lilac">{publicUrl}</p>
+          )}
         </div>
-        <div className="flex gap-3">
-          <Link
-            href={publicUrl}
-            target="_blank"
-            className="inline-flex h-11 items-center rounded-full bg-primary px-5 text-sm font-medium text-white"
-          >
-            Abrir proposta
-          </Link>
+        <div className="flex flex-wrap gap-3">
+          {proposal.status === "RASCUNHO" ? (
+            <form action={publishProposal.bind(null, proposal.id)}>
+              <Button type="submit">Publicar</Button>
+            </form>
+          ) : (
+            <Link
+              href={publicUrl}
+              target="_blank"
+              className="inline-flex h-11 items-center rounded-full bg-primary px-5 text-sm font-medium text-white"
+            >
+              Abrir proposta
+            </Link>
+          )}
         </div>
       </Card>
 

@@ -35,10 +35,18 @@ export default async function PipelinePage() {
 
   return (
     <div className="space-y-8 pb-24">
-      <header>
-        <p className="text-xs uppercase tracking-[0.28em] text-lilac">CRM</p>
-        <h1 className="mt-2 font-display text-4xl tracking-tight">Pipeline</h1>
-        <p className="mt-2 text-sm text-muted">Do rascunho ao aceite — um quadro, um olhar.</p>
+      <header className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-xs uppercase tracking-[0.28em] text-lilac">CRM</p>
+          <h1 className="mt-2 font-display text-4xl tracking-tight">Pipeline</h1>
+          <p className="mt-2 text-sm text-muted">Do rascunho ao aceite — um quadro, um olhar.</p>
+        </div>
+        <Link
+          href="/propostas/nova"
+          className="inline-flex h-11 items-center rounded-full bg-primary px-5 text-sm font-medium text-white"
+        >
+          Nova proposta
+        </Link>
       </header>
       <div className="flex gap-4 overflow-x-auto pb-4">
         {COLUMNS.map((status) => {
