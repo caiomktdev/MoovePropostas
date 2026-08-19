@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-plus-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: var(--font-syne), "Syne", var(--font-plus-jakarta), sans-serif;
+
+  --color-bg: #05030d;
+  --color-bg-alt: #08051a;
+  --color-surface: #0b061a;
+  --color-surface-2: #14082c;
+  --color-surface-3: #1b0c3a;
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-strong: rgb(255 255 255 / 0.16);
+
+  --color-primary: #5e2bff;
+  --color-primary-soft: #7c3aed;
+  --color-lilac: #c4b5fd;
+  --color-secondary: #2563eb;
+  --color-ink: #f8f7ff;
+  --color-muted: #9b97b0;
+  --color-faint: #6b6780;
+
+  --color-crit: #f43f5e;
+  --color-high: #f97316;
+  --color-mid: #eab308;
+  --color-low: #34d399;
+  --color-ok: #4ade80;
+
+  --shadow-glow: 0 0 80px -20px rgb(94 43 255 / 0.55);
+  --radius-lg: 1.25rem;
+  --radius-md: 0.9rem;
+  --radius-sm: 0.6rem;
+}
+
+@layer base {
+  html,
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink);
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  * {
+    border-color: var(--color-line);
+  }
+
+  ::selection {
+    background: rgb(94 43 255 / 0.4);
+    color: white;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-lilac);
+    outline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  .mesh {
+    background:
+      radial-gradient(900px 500px at 10% -10%, rgb(94 43 255 / 0.28), transparent 55%),
+      radial-gradient(700px 480px at 95% 0%, rgb(37 99 235 / 0.18), transparent 50%),
+      radial-gradient(600px 400px at 70% 110%, rgb(124 58 237 / 0.16), transparent 45%),
+      var(--color-bg);
+  }
+
+  .grid-tech {
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
+  .logo-knockout {
+    mix-blend-mode: screen;
+  }
+
+  .glass {
+    background: rgb(11 6 26 / 0.72);
+    backdrop-filter: blur(18px);
+    border: 1px solid var(--color-line);
+  }
+
+  .text-gradient {
+    background: linear-gradient(90deg, #c4b5fd 0%, #8b5cf6 42%, #2563eb 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
